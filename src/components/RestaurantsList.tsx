@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { IRestaurantsResponse } from "../interfaces";
-import { SimpleGrid } from "@mantine/core";
+import { SimpleGrid, Text } from "@mantine/core";
 import { RESTAURANT_IMAGES } from "../constants";
 import RestaurantCard from "./RestaurantCard";
 import RestaurantCardSkeleton from "./RestaurantCardSkeleton";
@@ -11,17 +11,23 @@ export interface RestaurantsListProps {
 }
 
 const RestaurantsList = ({ postcode }: RestaurantsListProps) => {
-  const { data, isSuccess, isLoading, isError, error } =
-    useQuery<IRestaurantsResponse>({
-      queryKey: ["GET/restaurants", postcode],
-      queryFn: async () => {
-        const { data } = await axios.get(
-          `/api/discovery/uk/restaurants/enriched/bypostcode/${postcode}`,
-        );
-        return data;
-      },
-      refetchOnWindowFocus: false,
-    });
+  const { data, isSuccess, isLoading, isError, error } = useQuery<
+    IRestaurantsResponse,
+    Error
+  >({
+    queryKey: ["GET/restaurants", postcode],
+    queryFn: async () => {
+      const { data } = await axios.get<IRestaurantsResponse>(
+        `/api/discovery/uk/restaurants/enriched/bypostcode/${postcode}`,
+      );
+      if (!data.restaurants || data.restaurants.length === 0) {
+        throw new Error("No restaurants found for this postcode.");
+      }
+      return data;
+    },
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
 
   if (isLoading) {
     return (
@@ -33,7 +39,13 @@ const RestaurantsList = ({ postcode }: RestaurantsListProps) => {
     );
   }
 
-  if (isError) return <p>Error: {error.message}</p>;
+  if (isError) {
+    return (
+      <Text ta="center" c="red" fw={600}>
+        {error.message}
+      </Text>
+    );
+  }
 
   return (
     <>

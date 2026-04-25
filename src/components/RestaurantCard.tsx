@@ -32,7 +32,7 @@ function RestaurantCard({ restaurant, imageSrc }: IRestaurantCardProps) {
           {restaurant.address.postalCode}
         </Text>
 
-        <Group justify="center" wrap="nowrap" gap="xs" mih={50}>
+        <Group justify="left" wrap="nowrap" gap="xs" mih={50}>
           <Text fw={600}>{restaurant.rating.starRating}</Text>{" "}
           <Rating value={restaurant.rating.starRating} fractions={2} readOnly />{" "}
           <Text fw={600}>({restaurant.rating.count})</Text>{" "}
