@@ -4,10 +4,13 @@ import type { IRestaurantsResponse } from "../interfaces";
 import { SimpleGrid } from "@mantine/core";
 import { RESTAURANT_IMAGES } from "../constants";
 import RestaurantCard from "./RestaurantCard";
+import RestaurantCardSkeleton from "./RestaurantCardSkeleton";
 
-const RestaurantsList = () => {
-  const postcode = "EC4M7RF";
+export interface RestaurantsListProps {
+  postcode: string;
+}
 
+const RestaurantsList = ({ postcode }: RestaurantsListProps) => {
   const { data, isSuccess, isLoading, isError, error } =
     useQuery<IRestaurantsResponse>({
       queryKey: ["GET/restaurants", postcode],
@@ -20,7 +23,16 @@ const RestaurantsList = () => {
       refetchOnWindowFocus: false,
     });
 
-  if (isLoading) return <p>Loading brands...</p>;
+  if (isLoading) {
+    return (
+      <SimpleGrid cols={5} spacing="xl">
+        {Array.from({ length: 10 }).map((_, index) => (
+          <RestaurantCardSkeleton key={index} />
+        ))}
+      </SimpleGrid>
+    );
+  }
+
   if (isError) return <p>Error: {error.message}</p>;
 
   return (

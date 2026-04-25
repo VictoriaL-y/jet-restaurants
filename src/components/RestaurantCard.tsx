@@ -8,7 +8,7 @@ interface IRestaurantCardProps {
 
 function RestaurantCard({ restaurant, imageSrc }: IRestaurantCardProps) {
   return (
-    <Card key={restaurant.id} shadow="sm" padding="lg" withBorder>
+    <Card key={restaurant.id} shadow="sm" withBorder>
       <Card.Section>
         <Image
           src={imageSrc}
@@ -18,34 +18,25 @@ function RestaurantCard({ restaurant, imageSrc }: IRestaurantCardProps) {
         />
       </Card.Section>
 
-      <Group
-        justify="space-between"
-        align="flex-start"
-        mt="md"
-        mb="xs"
-        wrap="nowrap"
-        mih={30}
-      >
-        <Text fw={500} lineClamp={2}>
-          {restaurant.name}
-        </Text>
-
-        <Group wrap="nowrap" gap="xs">
-          <Text fw={500}>{restaurant.rating.starRating}</Text>
-          <Rating value={restaurant.rating.starRating} fractions={2} readOnly />
-          <Text fw={500}>({restaurant.rating.count})</Text>
-        </Group>
-      </Group>
+      <Text fw={600} lineClamp={2} mt="md" mb="xs">
+        {restaurant.name}
+      </Text>
 
       <Box mt="auto">
         <Text size="sm" mb="xs" lineClamp={2} mih={40}>
           {restaurant.cuisines.map((cuisine) => cuisine.name).join(", ")}
         </Text>
 
-        <Text size="sm" c="dimmed" lineClamp={2} mih={40}>
+        <Text size="sm" c="dimmed" lineClamp={2} mih={30}>
           {restaurant.address.firstLine} {restaurant.address.city},{" "}
           {restaurant.address.postalCode}
         </Text>
+
+        <Group justify="center" wrap="nowrap" gap="xs" mih={50}>
+          <Text fw={600}>{restaurant.rating.starRating}</Text>{" "}
+          <Rating value={restaurant.rating.starRating} fractions={2} readOnly />{" "}
+          <Text fw={600}>({restaurant.rating.count})</Text>{" "}
+        </Group>
       </Box>
     </Card>
   );
