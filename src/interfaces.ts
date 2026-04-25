@@ -8,7 +8,7 @@ export interface IRestaurantsResponse {
   restaurants: IRestaurantDetails[];
 }
 
-interface IRestaurantDetails {
+export interface IRestaurantDetails {
   id: string;
   name: string;
   cuisines: {
