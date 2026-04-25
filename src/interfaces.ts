@@ -11,10 +11,22 @@ export interface IRestaurantsResponse {
 interface IRestaurantDetails {
   id: string;
   name: string;
-  cuisines: string[];
-  rating: number;
-  location: {
-    type: string;
-    coordinates: number[];
+  cuisines: {
+    name: string;
+    uniqueName: string;
+  }[];
+  rating: {
+    count: number;
+    starRating: number;
+    userRating: number | null;
+  };
+  address: {
+    city: string;
+    firstLine: string;
+    location: {
+      coordinates: number[];
+      type: string;
+    };
+    postalCode: string;
   };
 }
