@@ -18,7 +18,7 @@ const RestaurantsList = ({ postcode }: RestaurantsListProps) => {
     queryKey: ["GET/restaurants", postcode],
     queryFn: async () => {
       const { data } = await axios.get<IRestaurantsResponse>(
-        `/api/discovery/uk/restaurants/enriched/bypostcode/${postcode}`,
+        `/discovery/uk/restaurants/enriched/bypostcode/${postcode}`,
       );
       if (!data.restaurants || data.restaurants.length === 0) {
         throw new Error("No restaurants found for this postcode.");
