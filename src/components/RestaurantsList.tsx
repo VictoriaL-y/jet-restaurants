@@ -1,6 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import type { RestaurantsResponse } from "../types";
+import { useRestaurants } from "../hooks/useRestaurants";
 import { SimpleGrid, Text } from "@mantine/core";
 import RestaurantCard from "./RestaurantCard";
 import RestaurantCardSkeleton from "./RestaurantCardSkeleton";
@@ -11,17 +9,7 @@ export interface RestaurantsListProps {
 
 const RestaurantsList = ({ postcode }: RestaurantsListProps) => {
   const { data, isSuccess, isLoading, isError, error } =
-    useQuery<RestaurantsResponse>({
-      queryKey: ["GET/restaurants", postcode],
-      queryFn: async () => {
-        const { data } = await axios.get<RestaurantsResponse>(
-          `/discovery/uk/restaurants/enriched/bypostcode/${postcode}`,
-        );
-        return data;
-      },
-    });
-
-  const restaurants = data?.restaurants ?? [];
+    useRestaurants(postcode);
 
   if (isLoading) {
     return (
@@ -41,7 +29,7 @@ const RestaurantsList = ({ postcode }: RestaurantsListProps) => {
     );
   }
 
-  if (restaurants.length === 0) {
+  if (isSuccess && data.length === 0) {
     return (
       <Text ta="center" fw={600}>
         No restaurants found for this postcode.
@@ -53,7 +41,7 @@ const RestaurantsList = ({ postcode }: RestaurantsListProps) => {
     <>
       {isSuccess && (
         <SimpleGrid cols={{ base: 1, sm: 2, md: 3, lg: 4 }} spacing="lg">
-          {restaurants.slice(0, 10).map((restaurant) => (
+          {data.map((restaurant) => (
             <RestaurantCard key={restaurant.id} restaurant={restaurant} />
           ))}
         </SimpleGrid>
