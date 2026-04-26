@@ -11,6 +11,7 @@ function PostcodeSelect({ postcode, onPostcodeChange }: PostcodeSelectProps) {
     <Box maw={320} mx="auto" mb="xl">
       <Select
         label="Choose UK postcode"
+        placeholder="Please select a postcode"
         data={POSTCODE_OPTIONS}
         value={postcode}
         onChange={(value) => {

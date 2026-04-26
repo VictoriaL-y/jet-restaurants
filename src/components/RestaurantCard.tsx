@@ -29,10 +29,12 @@ function RestaurantCard({ restaurant }: { restaurant: RestaurantDetails }) {
           {restaurant.address.postalCode}
         </Text>
 
-        <Group justify="left" wrap="nowrap" gap="xs" mih={50}>
-          <Text fw={600}>{restaurant.rating.starRating}</Text>{" "}
-          <Rating value={restaurant.rating.starRating} fractions={2} readOnly />{" "}
-          <Text fw={600}>({restaurant.rating.count})</Text>{" "}
+        <Group wrap="nowrap" gap="xs" mih={50}>
+          <Rating value={restaurant.rating.starRating} fractions={2} readOnly />
+          <Text fw={600}>{restaurant.rating.starRating}</Text>
+          <Text c="dimmed" size="sm">
+            ({restaurant.rating.count})
+          </Text>
         </Group>
       </Box>
     </Card>

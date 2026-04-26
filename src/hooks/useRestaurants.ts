@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getRestaurants } from "../api/restaurants";
 
-export const RESTAURANTS_PER_PAGE = 10;
+const RESTAURANTS_PER_PAGE = 10;
 
 export function useRestaurants(postcode: string) {
   return useQuery({
