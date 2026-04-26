@@ -21,8 +21,7 @@ function App() {
       <Container size="95%" py="8vh">
         <Paper
           p="xl"
-          py="6vh"
-          mih="1100px"
+          py="5vh"
           radius="lg"
           shadow="md"
           bg="rgba(255, 255, 255, 0.8)"

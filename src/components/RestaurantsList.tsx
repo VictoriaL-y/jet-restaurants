@@ -3,7 +3,7 @@ import { SimpleGrid, Text } from "@mantine/core";
 import RestaurantCard from "./RestaurantCard";
 import RestaurantCardSkeleton from "./RestaurantCardSkeleton";
 
-export interface RestaurantsListProps {
+interface RestaurantsListProps {
   postcode: string;
 }
 

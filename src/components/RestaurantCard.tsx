@@ -3,7 +3,7 @@ import type { RestaurantDetails } from "../types";
 
 function RestaurantCard({ restaurant }: { restaurant: RestaurantDetails }) {
   return (
-    <Card key={restaurant.id} shadow="sm" orientation="horizontal">
+    <Card shadow="sm" orientation="horizontal">
       <Card.Section
         px="md"
         style={{

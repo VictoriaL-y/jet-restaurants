@@ -26,7 +26,7 @@ function RestaurantCardSkeleton() {
           <Skeleton height={16} width="85%" />
         </Box>
 
-        <Group justify="left" wrap="nowrap" gap="xs" mih={50}>
+        <Group wrap="nowrap" gap="xs" mih={50}>
           <Skeleton height={16} width={100} />
           <Skeleton height={16} width={32} />
           <Skeleton height={16} width={48} />
