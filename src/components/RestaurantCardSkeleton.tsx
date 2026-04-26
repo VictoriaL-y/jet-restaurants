@@ -2,23 +2,34 @@ import { Box, Card, Group, Skeleton } from "@mantine/core";
 
 function RestaurantCardSkeleton() {
   return (
-    <Card shadow="sm" withBorder>
-      <Card.Section>
-        <Skeleton height={160} />
+    <Card shadow="sm" orientation="horizontal">
+      <Card.Section
+        px="md"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Skeleton height={100} width={100} />
       </Card.Section>
 
-      <Group justify="space-between" align="flex-start" mt="md" mb="xs">
-        <Skeleton height={20} width="70%" mih={40} />
-      </Group>
+      <Box pt="sm" style={{ flex: 1 }}>
+        <Skeleton height={20} width="80%" mb="xs" mih={40} />
 
-      <Box mt="auto" mih={30}>
-        <Skeleton height={20} mb="xs" />
-        <Skeleton height={20} width="75%" mb="md" />
+        <Box mih={40} mb="xs">
+          <Skeleton height={16} width="90%" mb={6} />
+          <Skeleton height={16} width="65%" />
+        </Box>
 
-        <Group justify="center" wrap="nowrap" gap="xs" mih={50}>
-          <Skeleton height={20} width={32} />
-          <Skeleton height={20} width={120} />
-          <Skeleton height={20} width={48} />
+        <Box mih={30} mb="xs">
+          <Skeleton height={16} width="85%" />
+        </Box>
+
+        <Group justify="left" wrap="nowrap" gap="xs" mih={50}>
+          <Skeleton height={16} width={32} />
+          <Skeleton height={16} width={120} />
+          <Skeleton height={16} width={48} />
         </Group>
       </Box>
     </Card>

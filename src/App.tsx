@@ -1,11 +1,11 @@
 import { Box, Container, Paper, Title } from "@mantine/core";
 import RestaurantsList from "./components/RestaurantsList";
-import { BACKGROUND_IMAGE } from "./constants";
+import { BACKGROUND_IMAGE, POSTCODE_OPTIONS } from "./constants";
 import { useState } from "react";
 import PostcodeSelect from "./components/PostcodeSelect";
 
 function App() {
-  const [postcode, setPostcode] = useState<string>("CT1 2EH");
+  const [postcode, setPostcode] = useState<string>(POSTCODE_OPTIONS[0].value);
 
   return (
     <Box

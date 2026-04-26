@@ -1,8 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import type { IRestaurantsResponse } from "../interfaces";
+import type { RestaurantsResponse } from "../types";
 import { SimpleGrid, Text } from "@mantine/core";
-import { RESTAURANT_IMAGES } from "../constants";
 import RestaurantCard from "./RestaurantCard";
 import RestaurantCardSkeleton from "./RestaurantCardSkeleton";
 
@@ -11,27 +10,22 @@ export interface RestaurantsListProps {
 }
 
 const RestaurantsList = ({ postcode }: RestaurantsListProps) => {
-  const { data, isSuccess, isLoading, isError, error } = useQuery<
-    IRestaurantsResponse,
-    Error
-  >({
-    queryKey: ["GET/restaurants", postcode],
-    queryFn: async () => {
-      const { data } = await axios.get<IRestaurantsResponse>(
-        `/discovery/uk/restaurants/enriched/bypostcode/${postcode}`,
-      );
-      if (!data.restaurants || data.restaurants.length === 0) {
-        throw new Error("No restaurants found for this postcode.");
-      }
-      return data;
-    },
-    refetchOnWindowFocus: false,
-    retry: false,
-  });
+  const { data, isSuccess, isLoading, isError, error } =
+    useQuery<RestaurantsResponse>({
+      queryKey: ["GET/restaurants", postcode],
+      queryFn: async () => {
+        const { data } = await axios.get<RestaurantsResponse>(
+          `/discovery/uk/restaurants/enriched/bypostcode/${postcode}`,
+        );
+        return data;
+      },
+    });
+
+  const restaurants = data?.restaurants ?? [];
 
   if (isLoading) {
     return (
-      <SimpleGrid cols={5} spacing="xl">
+      <SimpleGrid cols={{ base: 1, sm: 2, md: 3, lg: 4 }} spacing="lg">
         {Array.from({ length: 10 }).map((_, index) => (
           <RestaurantCardSkeleton key={index} />
         ))}
@@ -47,16 +41,20 @@ const RestaurantsList = ({ postcode }: RestaurantsListProps) => {
     );
   }
 
+  if (restaurants.length === 0) {
+    return (
+      <Text ta="center" fw={600}>
+        No restaurants found for this postcode.
+      </Text>
+    );
+  }
+
   return (
     <>
       {isSuccess && (
-        <SimpleGrid cols={5} spacing="xl">
-          {data.restaurants.slice(0, 10).map((restaurant, index) => (
-            <RestaurantCard
-              key={restaurant.id}
-              restaurant={restaurant}
-              imageSrc={RESTAURANT_IMAGES[index]}
-            />
+        <SimpleGrid cols={{ base: 1, sm: 2, md: 3, lg: 4 }} spacing="lg">
+          {restaurants.slice(0, 10).map((restaurant) => (
+            <RestaurantCard key={restaurant.id} restaurant={restaurant} />
           ))}
         </SimpleGrid>
       )}
