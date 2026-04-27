@@ -12,7 +12,9 @@ function TestComponent({ shouldCrash }: { shouldCrash: boolean }) {
 
 describe("AppProviders", () => {
   it("shows fallback message when a child component crashes", () => {
-    vi.spyOn(console, "error").mockImplementation(() => {});
+    const consoleErrorSpy = vi
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
 
     render(
       <AppProviders>
@@ -23,5 +25,7 @@ describe("AppProviders", () => {
     expect(
       screen.getByText("Something went wrong. Please refresh."),
     ).toBeInTheDocument();
+
+    consoleErrorSpy.mockRestore();
   });
 });
