@@ -1,6 +1,6 @@
 import { Box, Container, Paper, Title } from "@mantine/core";
 import RestaurantsList from "./components/RestaurantsList";
-import { BACKGROUND_IMAGE, POSTCODE_OPTIONS } from "./constants";
+import { POSTCODE_OPTIONS } from "./constants";
 import { useState } from "react";
 import PostcodeSelect from "./components/PostcodeSelect";
 
@@ -10,13 +10,7 @@ function App() {
   return (
     <Box
       mih="100vh"
-      style={{
-        backgroundImage: `url(${BACKGROUND_IMAGE})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundAttachment: "fixed",
-      }}
+      bg="linear-gradient(135deg, #FF8000 0%, #FFB347 50%, #FCE8C7 100%)"
     >
       <Container size="95%" py="8vh">
         <Paper

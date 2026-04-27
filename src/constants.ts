@@ -1,6 +1,3 @@
-export const BACKGROUND_IMAGE =
-  "https://res.cloudinary.com/devqm7qmb/image/upload/w_400,h_160,c_fill,q_40,f_auto/v1777136738/emmanuel-phaeton-OPLiiq7y_SM-unsplash_nac3ha.jpg";
-
 export const POSTCODE_OPTIONS = [
   { value: "CT12EH", label: "CT1 2EH" },
   { value: "BS14DJ", label: "BS1 4DJ" },
