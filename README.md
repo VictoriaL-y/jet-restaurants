@@ -2,15 +2,13 @@
 
 **Jet Restaurants** is a React and TypeScript web application built for the Just Eat Takeaway Early Careers Software Engineering coding assignment.
 
-The application fetches restaurant data from the Just Eat UK restaurant discovery API and displays the first 10 restaurants for a selected UK postcode. The interface focuses on the required restaurant data points from the assignment brief: restaurant name, cuisines, rating as a number, and address.
-
 The project was generated with [Vite](https://vite.dev/) using the React TypeScript template.
 
 ## Overview
 
-The goal of this project is to provide a simple, clean, and user-friendly interface for viewing restaurant data returned by the Just Eat API.
+The application provides a clean and user-friendly interface for browsing restaurant data from the Just Eat API.
 
-Instead of displaying restaurants for only one postcode, the application allows users to select from all 16 postcodes provided in the assignment brief. When a postcode is selected, the application fetches and displays the first 10 restaurants returned for that postcode.
+The app displays the first 10 restaurants for a selected postcode. Users can choose from all 16 UK postcodes provided in the assignment brief, rather than viewing results for a single fixed postcode.
 
 ## Summary of Key Features
 
@@ -19,17 +17,17 @@ Instead of displaying restaurants for only one postcode, the application allows 
 - Shows the required restaurant information:
   - Restaurant name
   - Cuisines
-  - Rating as a number
   - Address
-- Uses reusable restaurant card components
-- Uses skeleton card components while API data is loading
-- Uses React Query for API request handling, loading state, error state, and query caching by postcode
-- Uses Axios for HTTP requests
-- Uses Mantine UI components for layout, cards, select fields, ratings, and styling
-- Uses TypeScript interfaces to describe API response data
-- Uses Cloudinary for remotely stored restaurant card images
-- Uses images sourced from Unsplash for visual presentation
-- Uses Prettier, ESLint, Husky, and lint-staged to keep code formatting consistent
+  - Rating
+- The app uses:
+  - Reusable restaurant card components
+  - Skeleton card components while API data is loading
+  - React Query for API request handling, loading state, error state, and query caching by postcode
+  - Axios for HTTP requests
+  - Mantine UI components for layout, cards, select fields, ratings, and styling
+  - TypeScript interfaces to describe API response data
+  - React Error Boundaries to display a fallback UI if the app crashes
+  - Prettier, ESLint, Husky, and lint-staged to keep code formatting consistent
 
 ## Tech Stack
 
@@ -41,120 +39,58 @@ Core technologies used in this project:
 - Mantine UI
 - React Query
 - Axios
-- Cloudinary
+- React Error Boundaries
 - Prettier
 - ESLint
 - Husky
 - lint-staged
 
-## API
-
-The application uses the Just Eat UK restaurant discovery API:
-
-```txt
-https://uk.api.just-eat.io/discovery/uk/restaurants/enriched/bypostcode/{postcode}
-```
-
-Example request:
-
-```txt
-https://uk.api.just-eat.io/discovery/uk/restaurants/enriched/bypostcode/EC4M7RF
-```
-
-The API only supports UK postcodes.
-
-## Supported Postcodes
-
-The application uses the 16 UK postcodes provided in the assignment brief:
-
-```txt
-CT1 2EH
-BS1 4DJ
-L4 0TH
-NE9 7TY
-SW1A 1AA
-CF11 8AZ
-M16 0RA
-EH1 1RE
-BN1 1AE
-CB7 4DL
-LS2 7HY
-G3 8AG
-PL4 0DW
-B26 3QJ
-DH4 5QZ
-BT7 1NN
-```
-
-## Installation
-
-### Prerequisites
-
-This project was developed using Node.js 24 and npm.
-
-Install `nvm`:
-
-```bash
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
-```
-
-Load `nvm` without restarting the shell:
-
-```bash
-. "$HOME/.nvm/nvm.sh"
-```
-
-Install Node.js:
-
-```bash
-nvm install 24
-```
-
-Verify the Node.js version:
-
-```bash
-node -v
-```
-
-Expected version used during development:
-
-```txt
-v24.15.0
-```
-
-Verify the npm version:
-
-```bash
-npm -v
-```
-
-Expected version used during development:
-
-```txt
-11.12.1
-```
-
 ## Setup
 
-Clone the repository:
+### 1. Clone the repository
 
 ```bash
-git clone <your-github-repository-url>
+git clone git@github.com:VictoriaL-y/jet-restaurants.git
 ```
 
-Navigate into the project directory:
+### 2. Navigate into the project directory
 
 ```bash
 cd jet-restaurants
 ```
 
-Install dependencies:
+### 3. Install Node.js and npm
+
+This project uses **Node.js 24** and **npm**.
+
+Detailed installation instructions are available on the [official Node.js website](https://nodejs.org/en/download).
+
+You can install Node.js using nvm:
+
+```bash
+nvm install 24
+```
+
+Alternatively, you can use Homebrew:
+
+```bash
+brew install node@24
+```
+
+### 4. Verify the installed versions
+
+```bash
+node -v # Should print "v24.15.0"
+npm -v  # Should print "11.12.1"
+```
+
+### 5. Install dependencies
 
 ```bash
 npm install
 ```
 
-## Environment Variables
+### 6. Set up environment variables
 
 Create a local `.env` file from the example file:
 
@@ -162,7 +98,7 @@ Create a local `.env` file from the example file:
 cp .env.example .env
 ```
 
-The file should contain:
+The `.env` file should contain:
 
 ```env
 VITE_API_BASE_URL=https://uk.api.just-eat.io
@@ -184,7 +120,7 @@ The application will usually be available at:
 http://localhost:5173/
 ```
 
-## Building the Application
+## Building and Previewing
 
 Create a production build:
 
@@ -192,15 +128,13 @@ Create a production build:
 npm run build
 ```
 
-## Previewing the Production Build
-
 Preview the production build locally:
 
 ```bash
 npm run preview
 ```
 
-The production preview will usually be available at:
+The preview will usually be available at:
 
 ```txt
 http://localhost:4173/
@@ -210,45 +144,52 @@ http://localhost:4173/
 
 The application is structured as a small one-page frontend app.
 
-The main responsibilities are split between reusable components:
+The code is split into separate files so that each part has a clear responsibility:
 
 - `App` manages the selected postcode and page layout
+- `AppProviders` wraps the application with shared providers, including Mantine, React Query, and Error Boundaries
 - `PostcodeSelect` displays the postcode dropdown
-- `RestaurantsList` handles API fetching and rendering restaurant cards
+- `RestaurantsList` displays the restaurant results and handles loading, error, empty, and success states
 - `RestaurantCard` displays individual restaurant information
 - `RestaurantCardSkeleton` displays loading placeholders while data is being fetched
-
-React Query is used to manage server state. The selected postcode is included in the query key, which means each postcode has its own query result. This helps avoid unnecessary repeated API calls when switching between postcodes that have already been loaded.
-
-Axios is used as the HTTP client for calling the Just Eat API.
-
-Mantine is used for UI elements such as layout containers, cards, select fields, text, rating display, and skeleton loaders.
-
-Cloudinary is used to store remote image URLs for the restaurant cards. These images are used only for visual presentation and are not part of the API response.
+- `getRestaurants` makes the API request to the Just Eat API
+- `useRestaurants` uses React Query to fetch, cache, and prepare restaurant data for the UI
 
 ## Error Handling
 
-The application handles basic API loading and error states.
+The application handles loading, error, empty, and crash states.
 
-If the API request is loading, skeleton restaurant cards are displayed.
+Skeleton restaurant cards are displayed while API data is loading. If the API request fails, an error message is shown. If no restaurants are returned for a postcode, the app displays a "No restaurants found for this postcode." message.
 
-If the request fails, or if no restaurants are returned for a postcode, the application displays an error message instead of the restaurant grid.
-
-React Query is used to expose loading, success, and error states in a clear and maintainable way.
+The app also uses an Error Boundary to display a fallback message if the application crashes unexpectedly.
 
 ## Code Quality
 
-This project uses Prettier to keep formatting consistent across the codebase.
+This project uses Prettier, ESLint, TypeScript, Husky, and lint-staged to keep the codebase consistent and maintainable.
 
-To format the code manually, run:
+Prettier is used for code formatting:
 
 ```bash
-npx prettier . --write
+npm run format
 ```
 
-ESLint is used for linting, and `eslint-config-prettier` is included to avoid conflicts between ESLint rules and Prettier formatting.
+To check formatting without making changes, run:
 
-Husky and lint-staged are used to run checks before commits. This helps prevent incorrectly formatted code from being committed.
+```bash
+npm run format:check
+```
+
+ESLint is used to check code quality:
+
+```bash
+npm run lint
+```
+
+To check for TypeScript errors, run:
+
+```bash
+npm run typecheck
+```
 
 ## Commit Conventions
 
@@ -260,52 +201,140 @@ Example:
 git commit -m "feat: add postcode select and restaurant card skeleton"
 ```
 
-## Assumptions
+## Challenges
 
-The following assumptions were made during development:
+### 1. API Proxy
 
-- Only the first 10 restaurants from the response should be displayed.
-- The required rating value should be taken from `restaurant.rating.starRating`.
-- The address should be displayed using the first address line, city, and postcode.
-- Restaurant images are not included in the API response, so external images were used for visual presentation.
-- The API only supports UK postcodes.
-- The 16 postcodes provided in the assignment are valid options for the postcode selector.
-- Some postcodes may return empty or unexpected responses, so loading and error states are required.
+The Just Eat API could not be called directly from the browser because the response was blocked by CORS.
+
+To solve this for the local assignment app, I added a Vite proxy.
+
+```ts
+// vite.config.ts
+
+      proxy: {
+        "/discovery": {
+          target: loadEnv(mode, process.cwd(), "").VITE_API_BASE_URL,
+          changeOrigin: true,
+        },
+      },
+```
+
+The app sends requests to the local `/discovery/...` path, and Vite forwards those requests to the Just Eat API base URL defined in the `.env` file:
+
+```env
+VITE_API_BASE_URL=https://uk.api.just-eat.io
+```
+
+In a real production deployment, this would usually be handled by a backend proxy or serverless function, because CORS only affects browser requests.
+
+### 2. Component Refactoring
+
+`RestaurantsList.tsx` was originally responsible for too much logic. It included the API request, React Query setup, and loading and error states.
+
+Before refactoring:
+
+```tsx
+// RestaurantsList.tsx
+
+const { data, isSuccess, isLoading, isError, error } =
+  useQuery<IRestaurantsResponse>({
+    queryKey: ["GET/restaurants", postcode],
+    queryFn: async () => {
+      const { data } = await axios.get(
+        `/discovery/uk/restaurants/enriched/bypostcode/${postcode}`,
+      );
+      return data;
+    },
+  });
+```
+
+I refactored this by separating the API call, data-fetching hook, and list rendering into separate files:
+
+- `getRestaurants` handles the API request
+- `useRestaurants` handles React Query and prepares the restaurant data for the UI
+- `RestaurantsList` handles the list states and renders restaurant cards
+
+After refactoring:
+
+```tsx
+// RestaurantsList.tsx
+
+const { data, isSuccess, isLoading, isError, error } = useRestaurants(postcode);
+```
+
+This made the component easier to read, maintain, and test.
+
+### 3. App Providers and Error Boundary Testing
+
+Another challenge was testing the Error Boundary behaviour. The app uses several global providers, including Mantine, React Query, and an Error Boundary.
+
+To keep this setup separate from the main application logic, I created an `AppProviders` component.
+
+```tsx
+const AppProviders = ({ children }: { children: ReactNode }) => {
+  return (
+    <MantineProvider theme={theme}>
+      <QueryClientProvider client={queryClient}>
+        <ErrorBoundary
+          fallback={
+            <Text ta="center" p="xl">
+              Something went wrong. Please refresh.
+            </Text>
+          }
+        >
+          {children}
+        </ErrorBoundary>
+      </QueryClientProvider>
+    </MantineProvider>
+  );
+};
+```
+
+This component wraps the app with all shared providers in one place.
+
+This also made the Error Boundary easier to test. In the test, a small test component intentionally throws an error, and the test checks that the fallback message is displayed:
+
+```txt
+Something went wrong. Please refresh.
+```
+
+This confirms that the app shows a user-friendly fallback UI if a child component crashes unexpectedly.
 
 ## Improvements
 
 Given more time, I would improve the project by adding:
 
-- Unit and component tests
-- A dedicated empty state for postcodes with no restaurant results
-- Better responsive behaviour for smaller screens
 - Sorting by rating or review count
 - Filtering by cuisine
-- Pagination or a “show more” option
-- Image fallback handling if a remote image fails to load
+- Search by restaurant name, cuisine
+- Results limit selector so users can choose whether to display 10, 20, or 30 restaurants
+- Pagination
+- A fallback image or placeholder if a restaurant logo URL is missing or fails to load
+- Restaurant details page
 - Accessibility improvements
 
 ## Testing
 
-Automated tests have not been added yet.
+This project uses **Vitest** and **React Testing Library** for unit and component testing.
 
-Testing is planned as a future improvement. I would add tests for:
+The test suite covers:
 
-- Restaurant card rendering
-- Postcode select behaviour
-- API loading state
-- API error state
-- Empty restaurant response handling
-- Rendering only the first 10 restaurants
+- The `restaurants.ts` API request logic, including checking that the correct Just Eat API endpoint is called
+- The `useRestaurants.ts` hook, including returning only the first 10 restaurants
+- Component rendering for `RestaurantCard` and `PostcodeSelect`
+- User interaction, such as selecting a different postcode
+- Loading, error, empty, and success states in `RestaurantsList`
+- Error Boundary behaviour when a child component crashes
 
-## Assignment Criteria Checklist
+Run tests in watch mode:
 
-- Displays restaurant name
-- Displays cuisines
-- Displays rating as a number
-- Displays address
-- Limits displayed restaurants to the first 10 results
-- Includes setup, build, and run instructions in the README
-- Includes assumptions
-- Includes possible improvements
-- Project uploaded to GitHub with commit history
+```bash
+npm run test
+```
+
+Run tests once:
+
+```bash
+npm run test:run
+```
