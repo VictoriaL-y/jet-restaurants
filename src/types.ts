@@ -14,13 +14,7 @@ export interface RestaurantDetails {
 export interface RestaurantAddress {
   city: string;
   firstLine: string;
-  location: RestaurantLocation;
   postalCode: string;
-}
-
-export interface RestaurantLocation {
-  coordinates: number[];
-  type: string;
 }
 
 export interface RestaurantRating {

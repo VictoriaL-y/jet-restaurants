@@ -2,7 +2,11 @@ import { Box, Card, Group, Skeleton } from "@mantine/core";
 
 function RestaurantCardSkeleton() {
   return (
-    <Card shadow="sm" orientation="horizontal">
+    <Card
+      shadow="sm"
+      orientation="horizontal"
+      data-testid="restaurant-card-skeleton"
+    >
       <Card.Section
         px="md"
         style={{
